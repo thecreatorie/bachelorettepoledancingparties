@@ -1,0 +1,315 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import heroImage from '../assets/hero-party-dancers.jpg';
+import studioPerformance from '../assets/studio-performance.jpg';
+import brideTribe from '../assets/bride-tribe.jpg';
+import bachGroup from '../assets/bachelorette-group-poles.jpg';
+import founderFawnia from '../assets/founder-fawnia.jpg';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Bachelorette Pole Dancing Parties',
+    alternateName: 'BPDP',
+    url: 'https://www.bachelorettepoledancingparties.com',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Bachelorette Pole Dancing Parties',
+    url: 'https://www.bachelorettepoledancingparties.com',
+    telephone: '+1-702-878-7653',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '4265 S. Arville Street, Suite A',
+      addressLocality: 'Las Vegas',
+      addressRegion: 'NV',
+      postalCode: '89103',
+      addressCountry: 'US',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: 'Las Vegas',
+    },
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Pole Fitness Studio',
+      url: 'https://www.polefitnessstudio.com/',
+    },
+    sameAs: [
+      'https://www.facebook.com/bachelorettepole',
+      'https://www.facebook.com/PoleFitnessStudioLV',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Bachelorette Party Ideas in Las Vegas"
+  description="Pole dancing bachelorette parties in Las Vegas. Private instruction on your own poles from real Las Vegas exotic dancers. Book the ultimate party today!"
+  canonical="https://www.bachelorettepoledancingparties.com/"
+  schema={schema}
+>
+  <Hero
+    eyebrow="Parties"
+    title="Welcome to Bachelorette Pole Dancing Parties"
+    subtitle="Experience the ultimate bachelorette party in Las Vegas with our exclusive pole dancing party package! At the world’s first pole dancing school, open since 1995, you and your group will learn a sultry pole dance routine, master a sexy lap dance, and perfect the art of striptease — all in a fun, supportive environment."
+    ctaLabel="Book Your Party"
+    ctaHref="https://www.polefitnessstudio.com/parties"
+    secondaryCtaLabel="Explore Party Packages"
+    secondaryCtaHref="/party-package"
+    image={heroImage}
+    imageAlt="Two women practicing a striptease dance routine beside studio poles during a Las Vegas pole dancing party"
+  />
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="The Best Pole Dancing Bachelorette Parties in Las Vegas"
+      title="Why Brides Love Our Pole Dancing Parties"
+      description="Led by Fawnia, the pioneer of pole fitness, our studio has been featured in USA Today, the Los Angeles Times, and The Travel Channel, which calls it one of the top ways to celebrate in Vegas. Make unforgettable memories while learning new moves at the best pole dancing bachelorette party in Las Vegas!"
+    />
+    <div class="split">
+      <div class="split-copy">
+        <h3>Pole, Spin, &amp; Dance <span class="script">for the bride!</span></h3>
+        <p>
+          Looking for something unique and exciting? A pole dancing bachelorette party in Las
+          Vegas is the perfect way to celebrate! Combine fun, laughter, and bold moves for an
+          experience your group will never forget.
+        </p>
+        <h3>The Ultimate Bachelorette Party Idea</h3>
+        <p>
+          Make your bachelorette party unforgettable with a private pole dancing class! Every
+          guest gets their own pole at our Las Vegas studio, where fun and empowerment meet.
+          Create lasting memories with a unique party experience, perfect for celebrating the
+          bride-to-be.
+        </p>
+        <p>
+          At our bachelorette party experiences — your party is yours, rather than mixing with
+          multiple groups. People aged 18&ndash;80, of all shapes and sizes are welcome. True
+          stripper moves are taught by real Las Vegas strippers in a fun, safe environment close
+          to the Las Vegas strip.
+        </p>
+        <div class="cta-row">
+          <Button href="https://www.polefitnessstudio.com/parties" variant="primary" external>Book Online</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <Image
+          src={bachGroup}
+          alt="Bachelorette party group posing together around the dance poles at Pole Fitness Studio in Las Vegas"
+          widths={[480, 768, 1124]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="Vegas, Dance, & Party"
+      title="Explore Our Party Packages"
+      description="Looking to throw an unforgettable bachelorette party in Las Vegas? Our pole dancing party packages offer a unique and exciting way to celebrate with your friends. Whether you're visiting for the weekend or you're a local, we’ve got everything you need to make your party a hit — from learning fun routines to having a blast with your group. Explore our packages below and book the perfect party for your bride-to-be!"
+    />
+    <div class="package-gallery">
+      <Image
+        src={studioPerformance}
+        alt="Dancer performing a pole routine under colored stage lights at the Las Vegas studio"
+        widths={[480, 768, 1280]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+      <Image
+        src={brideTribe}
+        alt="Bride tribe in matching outfits celebrating a bachelorette party at Pole Fitness Studio"
+        widths={[480, 768, 1280]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+    </div>
+    <div class="cta-row">
+      <Button href="https://www.polefitnessstudio.com/party-packages" variant="primary" size="lg" external>
+        Explore Bachelorette Party Packages
+      </Button>
+      <Button href="/party-package" variant="ghost" size="lg">See Pricing &amp; Perks</Button>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader eyebrow="Meet the Founder" title="Hi, I'm Fawnia" />
+    <div class="split split--reverse">
+      <div class="split-media">
+        <Image
+          src={founderFawnia}
+          alt="Fawnia Mondey, founder of Pole Fitness Studio, posing beside a dance pole in the studio"
+          widths={[480, 768, 1124]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+        />
+      </div>
+      <div class="split-copy">
+        <p>
+          My name is Fawnia. I am a pole dance instructor with over 30 years experience
+          performing and teaching. I was also a fitness model, personal trainer, writer,
+          producer and actress. After 20 years of competing, I have hung up my figure
+          competition suit, in exchange for being a mom, and nutrition coach.
+        </p>
+        <p>
+          I moved to Las Vegas from Canada in 2005 and have fallen in love with both the people,
+          and the city. I will forever be grateful for my surprise career path shift after
+          highschool, which steered from being a counselor or police officer, to exotic dancer.
+          Teaching pole dancing to hundreds of thousands of people from all over the world these
+          last 30 years has been an absolute blast.
+        </p>
+        <p>
+          Las Vegas tourists are my favorite. I love seeing you all dressed up for your
+          bachelorette parties, birthdays, and girls night out events. I am looking forward to
+          meeting you, the new generation of pole dancers. We are open for bachelorette parties
+          24/7 at Pole Fitness Studio!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader
+      eyebrow="Reviews"
+      title="Our Happy Customers"
+      description="Real reviews from bachelorette parties, birthdays, and girls nights out at our studio."
+    />
+    <blockquote class="review-teaser">
+      <p>
+        “We went here for my best friends bachelorette party and we had A BLAST!!!! Our
+        instructor was so knowledgeable and so much fun! She made us feel comfortable enough to
+        let loose and try new things.”
+      </p>
+      <footer>— Maddie Reed</footer>
+    </blockquote>
+    <div class="cta-row">
+      <Button href="/reviews" variant="ghost">Read More Reviews</Button>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="booking-band">
+      <h2>Ready to Celebrate? <span class="script">let's party!</span></h2>
+      <p>
+        Book the best pole dancing bachelorette party in Las Vegas — open for parties 24/7,
+        just 2 minutes west of the Strip.
+      </p>
+      <div class="cta-row cta-row--center">
+        <Button href="https://www.polefitnessstudio.com/parties" variant="primary" size="lg" external>Book Your Party</Button>
+        <Button href="tel:+17028787653" variant="secondary" size="lg">Call 702-878-POLE (7653)</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .split {
+      grid-template-columns: 3fr 2fr;
+    }
+    .split--reverse {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+
+  .split-media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    height: auto;
+  }
+
+  .split-copy h3 {
+    margin-top: var(--space-6);
+  }
+
+  .split-copy h3:first-child {
+    margin-top: 0;
+  }
+
+  .package-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .package-gallery {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .package-gallery :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .cta-row--center {
+    justify-content: center;
+  }
+
+  .review-teaser {
+    margin: 0;
+    padding: var(--space-8);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgb(214 51 108 / 0.10);
+    max-width: 70ch;
+  }
+
+  .review-teaser p {
+    margin: 0;
+    font-size: var(--fs-lg);
+  }
+
+  .review-teaser footer {
+    margin-top: var(--space-4);
+    font-weight: var(--fw-semibold);
+    color: var(--color-secondary);
+  }
+
+  .booking-band {
+    margin-top: var(--space-section);
+    padding: var(--space-12) var(--space-8);
+    text-align: center;
+    background:
+      radial-gradient(circle 6px at 10% 25%, color-mix(in oklab, var(--color-accent) 55%, transparent) 98%, transparent),
+      radial-gradient(circle 5px at 88% 20%, color-mix(in oklab, var(--color-secondary) 40%, transparent) 98%, transparent),
+      radial-gradient(circle 4px at 72% 85%, color-mix(in oklab, var(--color-primary) 40%, transparent) 98%, transparent),
+      linear-gradient(180deg, var(--color-surface), var(--color-bg));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .booking-band h2 {
+    margin: 0;
+  }
+
+  .booking-band p {
+    margin: var(--space-4) auto 0;
+    max-width: 55ch;
+    color: var(--color-text-muted);
+  }
+</style>

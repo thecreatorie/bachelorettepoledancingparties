@@ -1,0 +1,103 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, publishDate, updatedDate, author, tags, heroImage, heroAlt, canonicalUrl } = entry.data;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: publishDate.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  author: { '@type': 'Person', name: author },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl ?? Astro.url.href },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  schema={articleSchema}
+  canonical={canonicalUrl ?? Astro.url.href}
+>
+  <article class="post">
+    <header class="post-hero container">
+      {tags && tags.length > 0 && (
+        <ul class="tags" aria-label="Tags">
+          {tags.map(t => <li><a href={`/blog/tag/${t}`}>{t}</a></li>)}
+        </ul>
+      )}
+      <h1>{title}</h1>
+      <p class="meta">
+        <time datetime={publishDate.toISOString()}>
+          {publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <span aria-hidden="true"> · </span>
+        <span>{author}</span>
+        {updatedDate && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span>Updated <time datetime={updatedDate.toISOString()}>
+              {updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time></span>
+          </>
+        )}
+      </p>
+      {heroImage && heroAlt && (
+        <figure class="post-hero-image">
+          <Image src={heroImage} alt={heroAlt} widths={[480, 768, 1280]} sizes="(min-width: 1024px) 1024px, 100vw" loading="eager" />
+        </figure>
+      )}
+    </header>
+
+    <div class="post-body prose prose-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-hero {
+    padding-block: var(--space-section) var(--space-8);
+    text-align: center;
+  }
+  .post-hero h1 {
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .meta {
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+  .tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4) 0;
+  }
+  .tags a {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .post-hero-image {
+    margin: var(--space-8) auto 0;
+    max-width: 1024px;
+  }
+  .post-body {
+    padding-bottom: var(--space-section);
+  }
+</style>

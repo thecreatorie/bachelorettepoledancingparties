@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+const { entry } = Astro.props;
+const { title, description, publishDate, heroImage, heroAlt, tags } = entry.data;
+const href = `/blog/${entry.slug}`;
+---
+
+<article class="blog-card">
+  <a href={href} class="cover">
+    {heroImage && heroAlt && (
+      <Image src={heroImage} alt={heroAlt} widths={[480, 768]} sizes="(min-width: 768px) 400px, 100vw" />
+    )}
+  </a>
+  <div class="body">
+    {tags && tags.length > 0 && (
+      <p class="tags">{tags[0]}</p>
+    )}
+    <h3><a href={href}>{title}</a></h3>
+    <p>{description}</p>
+    <p class="meta">
+      <time datetime={publishDate.toISOString()}>
+        {publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+      </time>
+    </p>
+  </div>
+</article>
+
+<style>
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .cover {
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+  .cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .blog-card:hover .cover :global(img) {
+    transform: scale(1.03);
+  }
+  h3 {
+    margin: 0;
+    font-size: var(--fs-xl);
+  }
+  h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--color-accent);
+  }
+  .tags {
+    margin: 0;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+  .meta {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+</style>

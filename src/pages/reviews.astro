@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/Button.astro';
+import girlsCrawling from '../assets/girls-crawling.jpg';
+import firemanSpin from '../assets/fireman-spin.jpg';
+
+const reviews = [
+  {
+    quote:
+      'For my 21st birthday my mother surprised me with a private party at Pole Fitness Studio. My mom, grandma, boyfriend, and three best friends all came. I had no idea where they were taking me, because as we turned down Flamingo, my boyfriend put a blindfold on me! They were talking about getting tattoos as we parked, which I was very concerned about. We walked up some stairs, then entered a room. They were guiding me to what felt like another room, then placed my hands on a pole! OMG, a pole dancing class?! Our experience at Pole Fitness Studio was epic. I loved watching my mom and grandma attempt to pole dance and it was even more hilarious when they were learning the chair dance routine. Thank you to our teacher Energy Ash for an awesome time!',
+    author: 'Erin 21',
+    location: 'Henderson, NV',
+  },
+  {
+    quote:
+      'Last weeked my sister had her bachelorette party in Las Vegas and we had the best time! It all started with a pole dancing party at Pole Fitness Studio. Our instructor was Isa, and she was so welcoming and patient with our lack of coordination. We were nervous at first but after 15 minutes we found our groove and were able to laugh at ourselves, and let our hair down, literally. We will be back for another party next summer when I get married!',
+    author: 'Nicki 29',
+    location: 'San Diego, CA',
+  },
+  {
+    quote:
+      'We went here for my best friends bachelorette party and we had A BLAST!!!! Our instructor was so knowledgeable and so much fun! She made us feel comfortable enough to let loose and try new things. All but one in our group had tried anything like this before and we were all nervous but that quickly went away. I highly, highly recommend taking a class here!',
+    author: 'Maddie Reed',
+    location: null,
+  },
+];
+---
+
+<PageLayout
+  title="Reviews — Bachelorette Pole Dancing Parties"
+  description="Checkout these reviews from happy customers of Pole Fitness Studio's bachelorette party packages."
+  canonical="https://www.bachelorettepoledancingparties.com/reviews"
+  eyebrow="Reviews"
+  heading="Our Happy Customers"
+  intro="Here’s a collection of recent reviews and a way for you to leave one."
+>
+  <section class="container">
+    <p class="script-lede"><span class="script">our happy brides</span></p>
+    <p class="lede">
+      At BPDP, our utmost priority lies in providing exceptional service that leaves our
+      customers delighted. We derive immense gratification from the positive feedback we
+      receive, as it serves as a testament to our dedication and efforts. If your experience
+      with us was exceptional and it brought you joy, we kindly request you to take a moment to
+      share your valuable thoughts on Google. Your glowing review will not only highlight our
+      commitment to excellence, but it will also help others discover the exceptional
+      experience that awaits them at BPDP.
+    </p>
+    <div class="cta-row">
+      <Button href="https://g.page/r/CUI8Ia2fKTOTEBM/review" variant="primary" external>
+        Leave Us a Google Review
+      </Button>
+    </div>
+
+    <div class="review-grid">
+      {reviews.map((r) => (
+        <blockquote class="review-card">
+          <p>“{r.quote}”</p>
+          <footer>
+            — {r.author}
+            {r.location && <span class="location"> · {r.location}</span>}
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+
+    <div class="photo-row">
+      <Image
+        src={girlsCrawling}
+        alt="Party guests laughing while learning a floor-work routine together at the pole dancing studio"
+        widths={[480, 768, 1200]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+      <Image
+        src={firemanSpin}
+        alt="Party guest trying a fireman spin on the pole while her friends cheer her on"
+        widths={[300, 600]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+    </div>
+
+    <div class="cta-row cta-row--center">
+      <Button href="https://www.polefitnessstudio.com/parties" variant="primary" size="lg" external>
+        Book Your Own Party
+      </Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .script-lede {
+    margin: var(--space-8) 0 0 0;
+    font-size: var(--fs-2xl);
+  }
+
+  .lede {
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    margin-top: var(--space-3);
+  }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+  }
+
+  @media (min-width: 900px) {
+    .review-grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
+  }
+
+  .review-card {
+    margin: 0;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgb(214 51 108 / 0.10);
+  }
+
+  .review-card p {
+    margin: 0;
+  }
+
+  .review-card footer {
+    margin-top: var(--space-4);
+    font-weight: var(--fw-semibold);
+    color: var(--color-secondary);
+  }
+
+  .review-card .location {
+    color: var(--color-text-subtle);
+    font-weight: var(--fw-regular);
+  }
+
+  .photo-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .photo-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .photo-row :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .cta-row--center {
+    justify-content: center;
+    margin-top: var(--space-10);
+  }
+</style>

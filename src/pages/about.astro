@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/Button.astro';
+import groupRed from '../assets/group-red-lights.jpg';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Us — Bachelorette Pole Dancing Parties',
+  url: 'https://www.bachelorettepoledancingparties.com/about',
+};
+---
+
+<PageLayout
+  title="About Us — Bachelorette Pole Dancing Parties"
+  description="Learn about pole dancing parties at Pole Fitness Studio in Las Vegas — over 15,000 bachelorettes celebrated since 2005 with Fawnia Mondey and her team."
+  canonical="https://www.bachelorettepoledancingparties.com/about"
+  eyebrow="About Us"
+  heading="About Bachelorette Pole Dancing Parties"
+  intro="At Pole Fitness Studio, we have five dance rooms. Two of the rooms cater to pole dancing parties for groups of all sizes celebrating bachelorette parties, birthday parties, girls night out and really any occasion you can think of."
+  schema={aboutSchema}
+>
+  <section class="container">
+    <div class="split">
+      <div class="split-copy">
+        <p>
+          We have celebrated with over 15,000 bachelorettes since we opened in Las Vegas in
+          2005. Fawnia Mondey, and her staff of 30 incredible instructors have developed super
+          fun routines which have kept parties coming back year after year.
+        </p>
+        <p>
+          Yes you can request your instructor, because you are the boss when it comes to your
+          pole dancing party. You can even tell us what music you'd like. Do you prefer to keep
+          it classy and learn burlesque? Let us know! We can build the party around your
+          interests.
+        </p>
+        <p>
+          Popular party style choices are pole dancing and chair dancing with a striptease,
+          burlesque, pole only, chair and twerk only, yoga, or request a belly dancing party.
+        </p>
+        <p>
+          We will help you create lasting memories for your bride-to-be
+          <span class="script">and her besties!</span> We will also take lots of photos and
+          videos of your party if you'd like.
+        </p>
+        <p>
+          Do you plan on going to a club or pool while in Vegas? We will set you up with free
+          VIP entry for your entire group, any day, any night!
+        </p>
+        <div class="cta-row">
+          <Button href="/contact" variant="primary" size="lg">Book Online</Button>
+          <Button href="/party-package" variant="ghost" size="lg">See Party Packages</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <Image
+          src={groupRed}
+          alt="Bachelorette party group posing under the studio's signature red lights at Pole Fitness Studio"
+          widths={[480, 768, 948]}
+          sizes="(min-width: 1024px) 45vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: start;
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .split {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .split-media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    height: auto;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+</style>

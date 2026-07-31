@@ -1,0 +1,102 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<!--
+  NEW PAGE — no privacy policy existed on the old site.
+  This is plain-language starter content written during migration.
+  NEEDS OWNER REVIEW before launch (see _migration/rebuild-log.md).
+-->
+<PageLayout
+  title="Privacy Policy — Bachelorette Pole Dancing Parties"
+  description="How Bachelorette Pole Dancing Parties collects and uses information: analytics cookies, contact form details, and your choices. We never sell your data."
+  canonical="https://www.bachelorettepoledancingparties.com/privacy"
+  eyebrow="Legal"
+  heading="Privacy Policy"
+  intro="We keep it simple: we collect as little as possible, we never sell your information, and we only use what you share with us to plan your party."
+>
+  <section class="container prose">
+    <p><em>Last updated: July 31, 2026</em></p>
+
+    <h2>Who we are</h2>
+    <p>
+      Bachelorette Pole Dancing Parties (BPDP) is a small Las Vegas event business. Our parties
+      take place at Pole Fitness Studio, 4265 S. Arville Street, Suite A, Las Vegas, Nevada
+      89103. You can reach us any time at
+      <a href="tel:+17028787653">702-878-POLE (7653)</a>.
+    </p>
+
+    <h2>What we collect</h2>
+    <p>We collect information in two ways:</p>
+    <ul>
+      <li>
+        <strong>Contact form.</strong> If you use the form on our
+        <a href="/contact">contact page</a>, we receive the details you type in — your name,
+        email address, party date, group size, and message. The form is processed by
+        Formspree, a third-party form service, which delivers your message to our inbox. We
+        use this information only to answer your questions and plan your party.
+      </li>
+      <li>
+        <strong>Analytics cookies.</strong> We use Google Analytics 4 to understand how
+        visitors use our site — for example, which pages are popular. Google Analytics sets
+        cookies and collects usage data such as pages viewed, approximate location, and device
+        type. This data is aggregated and does not tell us who you are personally. You can
+        block these cookies in your browser settings or with tools like the
+        <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out add-on</a>.
+      </li>
+    </ul>
+
+    <h2>What we don't do</h2>
+    <ul>
+      <li>We do not sell, rent, or trade your personal information. Ever.</li>
+      <li>We do not send marketing emails unless you ask us to.</li>
+      <li>We do not collect payment details on this website.</li>
+    </ul>
+
+    <h2>Booking and third-party sites</h2>
+    <p>
+      Party bookings are handled on
+      <a href="https://www.polefitnessstudio.com/" rel="noopener">polefitnessstudio.com</a>,
+      our studio's website. When you book there, that site's own privacy practices apply. Links
+      to other sites (such as Facebook or Google Reviews) are likewise governed by those
+      companies' policies.
+    </p>
+
+    <h2>How long we keep your information</h2>
+    <p>
+      We keep contact messages only as long as we need them to organize your event or answer
+      your question, then delete them in the normal course of business.
+    </p>
+
+    <h2>Your choices</h2>
+    <p>
+      Want to know what information we have about you, or want it deleted? Just call us at
+      <a href="tel:+17028787653">702-878-POLE (7653)</a> or send a note through the
+      <a href="/contact">contact page</a> and we will take care of it.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If we change how we handle your information, we will update this page and the date at the
+      top.
+    </p>
+  </section>
+</PageLayout>
+
+<style>
+  .prose {
+    max-width: 70ch;
+    margin-top: var(--space-8);
+  }
+
+  .prose h2 {
+    margin-top: var(--space-8);
+  }
+
+  .prose ul {
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+</style>

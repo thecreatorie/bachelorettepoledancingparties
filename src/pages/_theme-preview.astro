@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import Hero from '../components/Hero.astro';
+const tokens = {"color-primary": "#d6336c", "color-primary-contrast": "#ffffff", "color-secondary": "#7048b6", "color-accent": "#f2a007", "color-bg": "#fffafc", "color-surface": "#fdf0f5", "color-border": "#f3d7e2", "color-text": "#2b1622", "color-text-muted": "#5c3a4c", "color-text-subtle": "#8a6577"};
+---
+<BaseLayout title="Theme preview — Bachelorette Pole Dancing Parties" description="Internal theme preview" noindex={true}>
+  <Hero eyebrow="Theme preview" title="Bachelorette Pole Dancing Parties" subtitle="The fun one: champagne-and-confetti party planner — bright, feminine, celebratory, easy to skim on a phone." ctaLabel="Primary action" ctaHref="#" secondaryCtaLabel="Secondary" secondaryCtaHref="#" />
+  <section class="container" style="padding-block: var(--space-12);">
+    <h2>Colors</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--space-4);">
+      {Object.entries(tokens).map(([k, v]) => (
+        <div style="border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;">
+          <div style={`height:56px;background:${v}`}></div>
+          <div style="padding:8px;font-size:12px;">{k}<br/>{v}</div>
+        </div>
+      ))}
+    </div>
+    <h2 style="margin-top:var(--space-10);">Type</h2>
+    <p class="eyebrow">Eyebrow label</p>
+    <h1>Display heading one</h1>
+    <h2>Heading two</h2>
+    <h3>Heading three</h3>
+    <p>Body text — fun, hype-woman. <a href="#">An inline link</a>.</p>
+    <h2 style="margin-top:var(--space-10);">Buttons</h2>
+    <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;">
+      <Button href="#" variant="primary">Primary</Button>
+      <Button href="#" variant="secondary">Secondary</Button>
+      <Button href="#" variant="ghost">Ghost</Button>
+    </div>
+    <h2 style="margin-top:var(--space-10);">Card</h2>
+    <div style="max-width:420px;"><Card title="Sample card" href="#">Card body copy showing surface, border and radius tokens.</Card></div>
+  </section>
+</BaseLayout>

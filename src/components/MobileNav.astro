@@ -1,0 +1,109 @@
+---
+const items = [
+  { label: 'Home', href: '/' },
+  { label: 'Party Packages', href: '/party-package' },
+  { label: 'Reviews', href: '/reviews' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Book Now', href: 'https://www.polefitnessstudio.com/parties' },
+];
+---
+
+<div class="mobile-nav-wrap">
+  <button id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Open menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
+    </svg>
+  </button>
+
+  <div id="mobile-nav-drawer" class="drawer" hidden>
+    <nav aria-label="Mobile primary">
+      <ul>
+        {items.map(item => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .mobile-nav-wrap button {
+    background: transparent;
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+    color: var(--color-text);
+    border-radius: var(--radius-md);
+    /* 44x44 minimum touch target */
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-nav-wrap { display: none; }
+  }
+
+  .drawer {
+    position: fixed;
+    inset: 64px 0 0 0;
+    background: var(--color-bg);
+    padding: var(--space-6);
+    z-index: 40;
+  }
+
+  .drawer[hidden] { display: none; }
+
+  .drawer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .drawer a {
+    display: block;
+    padding: var(--space-3);
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-medium);
+    border-radius: var(--radius-md);
+  }
+
+  .drawer a:hover {
+    background: var(--color-surface);
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const drawer = document.getElementById('mobile-nav-drawer');
+
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', !open ? 'Close menu' : 'Open menu');
+      if (open) {
+        drawer.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      } else {
+        drawer.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        const first = drawer.querySelector('a');
+        (first as HTMLElement | null)?.focus();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        toggle.click();
+        toggle.focus();
+      }
+    });
+  }
+</script>

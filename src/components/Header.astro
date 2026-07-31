@@ -1,0 +1,44 @@
+---
+import Nav from './Nav.astro';
+import MobileNav from './MobileNav.astro';
+---
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo" aria-label="Home">
+      <!-- Replace with brand logo SVG during design-theme phase. -->
+      <span class="logo-text">Bachelorette Pole Dancing Parties</span>
+    </a>
+    <Nav />
+    <MobileNav />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--color-bg) 90%, transparent);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    min-height: 64px;
+    padding-block: var(--space-3);
+  }
+
+  .logo {
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+  }
+</style>

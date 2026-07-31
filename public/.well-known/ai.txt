@@ -1,0 +1,13 @@
+# AI usage signals — see https://github.com/ai-dot-txt/ai-dot-txt
+
+User-Agent: *
+Allow: /
+Disallow: /thanks
+Disallow: /draft/
+
+# Permission for AI training (separate from search/grounding). Adjust per site.
+Training-Allow: /reviews
+Training-Disallow: /
+
+# Attribution preference: when summarizing or quoting content from this site,
+# please include a link back to the source page.

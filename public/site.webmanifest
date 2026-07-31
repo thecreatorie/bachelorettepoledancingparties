@@ -1,0 +1,14 @@
+{
+  "name": "Bachelorette Pole Dancing Parties",
+  "short_name": "Bachelorette",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#d6336c",
+  "background_color": "#fffafc",
+  "display": "browser"
+}

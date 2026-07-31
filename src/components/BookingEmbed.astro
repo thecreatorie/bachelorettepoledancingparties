@@ -1,0 +1,59 @@
+---
+export interface Props {
+  url: string;          // Calendly / SavvyCal / Cal.com URL
+  variant?: 'inline' | 'popup';
+  popupLabel?: string;
+  height?: string;
+}
+
+const { url, variant = 'inline', popupLabel = 'Book a time', height = '700px' } = Astro.props;
+
+// Detect provider
+const isCalendly = url.includes('calendly.com');
+const isSavvyCal = url.includes('savvycal.com');
+const isCal = url.includes('cal.com');
+---
+
+{variant === 'inline' ? (
+  <div class="booking-inline" style={`min-height:${height}`}>
+    <iframe
+      src={url}
+      title="Booking calendar"
+      width="100%"
+      height={height}
+      frameborder="0"
+      loading="lazy"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    ></iframe>
+  </div>
+) : (
+  <button
+    type="button"
+    class="booking-popup-trigger btn btn--primary btn--lg"
+    data-booking-url={url}
+    data-provider={isCalendly ? 'calendly' : isSavvyCal ? 'savvycal' : isCal ? 'cal' : 'iframe'}
+  >
+    {popupLabel}
+  </button>
+)}
+
+<style>
+  .booking-inline {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.booking-popup-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const url = btn.dataset.bookingUrl;
+      if (!url) return;
+      // Minimal popup: open in a new tab. For native popups, replace per-provider
+      // (Calendly.initPopupWidget, etc.) — kept generic here for portability.
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  });
+</script>

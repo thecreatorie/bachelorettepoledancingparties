@@ -1,0 +1,106 @@
+---
+import Button from './Button.astro';
+
+interface FieldDef {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'tel' | 'url' | 'textarea';
+  required?: boolean;
+  placeholder?: string;
+  autocomplete?: string;
+}
+
+export interface Props {
+  action: string; // Formspree (or alternative) endpoint URL
+  fields: FieldDef[];
+  successRedirect?: string;
+  submitLabel?: string;
+  subject?: string;
+}
+
+const {
+  action,
+  fields,
+  successRedirect = '/thanks',
+  submitLabel = 'Send',
+  subject = 'New website inquiry',
+} = Astro.props;
+---
+
+<form method="post" action={action} class="contact-form" novalidate>
+  <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="_next" value={successRedirect} />
+  <!-- Honeypot: humans skip; bots fill. -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
+
+  {fields.map((f) => (
+    <div class="field">
+      <label for={`field-${f.name}`}>
+        {f.label}{f.required ? <span aria-hidden="true"> *</span> : null}
+        {f.required && <span class="sr-only"> (required)</span>}
+      </label>
+      {f.type === 'textarea' ? (
+        <textarea
+          id={`field-${f.name}`}
+          name={f.name}
+          required={f.required}
+          placeholder={f.placeholder}
+          autocomplete={f.autocomplete}
+          rows="5"
+        ></textarea>
+      ) : (
+        <input
+          id={`field-${f.name}`}
+          name={f.name}
+          type={f.type}
+          required={f.required}
+          placeholder={f.placeholder}
+          autocomplete={f.autocomplete}
+        />
+      )}
+    </div>
+  ))}
+
+  <Button type="submit" variant="primary" size="lg" fullWidth>{submitLabel}</Button>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 560px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  label {
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-sm);
+  }
+  input,
+  textarea {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font: inherit;
+    background: var(--color-bg);
+    color: var(--color-text);
+    width: 100%;
+  }
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 0;
+    border-color: var(--color-accent);
+  }
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+</style>

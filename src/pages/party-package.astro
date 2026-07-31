@@ -1,0 +1,220 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import partyGroup from '../assets/party-group-studio.jpg';
+import bachParty from '../assets/bach-party-certificates.jpg';
+import groupLaughing from '../assets/group-laughing.jpg';
+
+const faqs = [
+  {
+    q: 'What should my friends and I wear to our pole dancing party?',
+    a: "During the Day: Wear workout attire or get official pole dancing gear from us. We have tank tops, shorts, leggings and yoga pants available. Yes you can bring your heels, and at least wear them for the photos! At Night: If you're hitting the clubs after you party, try wearing clothes that aren't too tight or too short! We have shorts and tank tops available for purchase if needed. Good rule of thumb, make sure you can comfortably move in your pants. Yes you can bring your heels, and at least wear them for the photos!",
+  },
+  {
+    q: 'When should we arrive for the party?',
+    a: 'Please arrive at least 15 minutes before your party is scheduled to begin. This gives us time to have everyone fill out their waiver and complete payment if needed. You can chill in our lobby with our flat screen TVs or relax on our patio. You’ll feel like a star with our sexy red lights, spinning disco ball, and stereo surround sound.',
+  },
+  {
+    q: 'Is there parking at Pole Fitness Studio?',
+    a: 'Yes you can park in the designated parking spots labeled Pole Fitness Studio or anywhere in the back lot. At night our entire parking lot is brightly lit.',
+  },
+  {
+    q: 'How soon in advance should I book my bachelorette party?',
+    a: 'The sooner you make your reservation the better, as we fill up fast and it’s best to arrange two to three months in advance. If you are a last minute planner and want to pole dance with us this week, call us and we may still be able to accommodate you, otherwise we can bring the pole dancing party to your hotel! When you know the date and time you would like to have your party, call us to find out about availability. (702) 878-7653',
+  },
+  {
+    q: 'Can we record our parties?',
+    a: 'You are welcome to take still photos. In fact your instructor will pose your group in cute and sexy poses with the poles! Please ask your instructor before taking videos. If you would like a professional video of your private pole dancing party, we can arrange for your party to be recorded from start to finish and then our professional editor will compile all the special moments into one incredibly memorable video! Super cool gift for the bride or birthday girl! Cost is $300. When you book your party with us, mention you want to have your party on video!',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<PageLayout
+  title="Party Packages — Bachelorette Pole Dancing Parties"
+  description="Bachelorette party pricing, perks, and bundles in Las Vegas. $40 per guest with a six-person minimum — every girl gets her own pole. Save with bundles!"
+  canonical="https://www.bachelorettepoledancingparties.com/party-package"
+  eyebrow="Parties"
+  heading="Party Packages"
+  intro="Traveling to Las Vegas for your bachelorette party? Pole Fitness Studio offers unforgettable party packages that can be customized with exciting add-ons. Located 2 minutes west of the Las Vegas strip and available for parties 24/7. Mention these options when booking to create a memorable celebration!"
+  schema={faqSchema}
+>
+  <section class="container">
+    <SectionHeader eyebrow="Pricing" title="Party Pricing" />
+    <div class="split">
+      <div class="split-copy">
+        <p>
+          Price: <strong>$40 per guest</strong> with a six person minimum, and every girl will
+          get her own pole to dance on! If you have groups smaller than six women, or larger
+          than fifteen, call us &ndash; we will accommodate you.
+        </p>
+        <p>Parties are <strong>75 minutes</strong> in length.</p>
+        <p>
+          Call Pole Fitness Studio today to book your party, and experience the best
+          bachelorette party in Las Vegas!
+          <a href="tel:+17028787653">702-878-POLE (7653)</a>.
+        </p>
+        <div class="cta-row">
+          <Button href="/contact" variant="primary">Book Online</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <Image
+          src={partyGroup}
+          alt="Large bachelorette party group gathered in the pole dancing studio in Las Vegas"
+          widths={[480, 768, 1280]}
+          sizes="(min-width: 1024px) 45vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader eyebrow="Perks" title="Party Perks" />
+    <div class="split">
+      <div class="split-copy">
+        <ul class="perks">
+          <li>
+            The bride receives an <strong>I LOVE POLE DANCING</strong> tank top
+            <span class="script">for the bride!</span>
+          </li>
+          <li>Each participant receives a personalized laminated certified sexy license.</li>
+          <li>Cameras encouraged to capture the fun.</li>
+          <li>
+            Each party reservation includes FREE VIP ACCESS to any of Las Vegas’ hottest clubs
+            and pools.
+          </li>
+          <li>Party bundles available to keep the fun going while saving money!</li>
+        </ul>
+        <div class="cta-row">
+          <Button href="https://www.polefitnessstudio.com/bachelorette-party-bundles" variant="secondary" external>
+            Click Here for Ideas About How to Bundle Your Party
+          </Button>
+          <Button href="/contact" variant="primary">Book Online</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <Image
+          src={bachParty}
+          alt="Bachelorette party guests holding up their certified sexy license certificates at the studio"
+          widths={[480, 768, 1200]}
+          sizes="(min-width: 1024px) 45vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <SectionHeader eyebrow="Questions" title="Party FAQs" />
+    <div class="faq-wrap">
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <div class="faq-media">
+        <Image
+          src={groupLaughing}
+          alt="Group of friends laughing together during a pole dancing party class"
+          widths={[300, 600]}
+          sizes="(min-width: 1024px) 30vw, 100vw"
+        />
+      </div>
+    </div>
+    <div class="cta-row">
+      <Button href="/contact" variant="primary" size="lg">Book Online</Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .split {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .split-media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    height: auto;
+  }
+
+  .perks {
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .faq-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .faq-wrap {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .faq-media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    height: auto;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .faq summary {
+    cursor: pointer;
+    font-weight: var(--fw-semibold);
+    font-family: var(--font-display);
+  }
+
+  .faq p {
+    margin: var(--space-3) 0 0 0;
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+export interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  fullWidth?: boolean;
+  ariaLabel?: string;
+  external?: boolean;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  ariaLabel,
+  external = false,
+} = Astro.props;
+
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, fullWidth && 'btn--full'].filter(Boolean).join(' ');
+const isLink = !!href;
+---
+
+{isLink ? (
+  <a
+    href={href}
+    class={classes}
+    aria-label={ariaLabel}
+    target={external ? '_blank' : undefined}
+    rel={external ? 'noopener noreferrer' : undefined}
+  >
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} aria-label={ariaLabel}>
+    <slot />
+  </button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    font: inherit;
+    font-weight: var(--fw-medium);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--fs-lg);
+  }
+
+  .btn--primary {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+  .btn--primary:hover {
+    background: color-mix(in oklab, var(--color-primary) 88%, black);
+  }
+
+  .btn--secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+  .btn--secondary:hover {
+    background: color-mix(in oklab, var(--color-surface) 90%, var(--color-text));
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+  .btn--ghost:hover {
+    background: var(--color-surface);
+  }
+
+  .btn--full {
+    width: 100%;
+  }
+</style>

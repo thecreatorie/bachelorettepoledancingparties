@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const { eyebrow, title, subtitle, ctaLabel, ctaHref, secondaryCtaLabel, secondaryCtaHref, image, imageAlt } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="copy">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {subtitle && <p class="subtitle">{subtitle}</p>}
+      {(ctaLabel || secondaryCtaLabel) && (
+        <div class="ctas">
+          {ctaLabel && ctaHref && <Button href={ctaHref} variant="primary">{ctaLabel}</Button>}
+          {secondaryCtaLabel && secondaryCtaHref && <Button href={secondaryCtaHref} variant="ghost">{secondaryCtaLabel}</Button>}
+        </div>
+      )}
+    </div>
+    {image && (
+      <div class="media">
+        <Image
+          src={image}
+          alt={imageAlt ?? ''}
+          widths={[480, 768, 1280, 1920]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          loading="eager"
+        />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-section);
+  }
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero .container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .eyebrow {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+  .subtitle {
+    font-size: var(--fs-lg);
+    color: var(--color-text-muted);
+    max-width: 50ch;
+    margin-block: var(--space-4);
+  }
+  .ctas {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+  .media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Button from '../components/Button.astro';
+import studioPoles from '../assets/studio-poles.jpg';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Us — Bachelorette Pole Dancing Parties',
+  url: 'https://www.bachelorettepoledancingparties.com/contact',
+};
+---
+
+<PageLayout
+  title="Contact Us — Bachelorette Pole Dancing Parties"
+  description="Reserve your Las Vegas pole dancing bachelorette party. Call 702-878-POLE (7653) or send a message — 2 minutes west of the Strip, open for parties 24/7."
+  canonical="https://www.bachelorettepoledancingparties.com/contact"
+  eyebrow="Contact"
+  heading="We would love to hear from you!"
+  intro="We are here to answer all your questions, and get your party booked. Located 2 minutes west of the Las Vegas strip and available for parties 24/7!"
+  schema={contactSchema}
+>
+  <section class="container">
+    <div class="split">
+      <div>
+        <h2>Call or Book Online</h2>
+        <p class="phone">
+          Phone: <a href="tel:+17028787653">702 878 POLE (7653)</a>
+        </p>
+        <address>
+          <strong>POLE FITNESS STUDIO</strong><br />
+          4265 S. Arville Street, Suite A<br />
+          Las Vegas, Nevada 89103
+        </address>
+        <div class="cta-row">
+          <Button href="https://www.polefitnessstudio.com/parties" variant="primary" size="lg" external>
+            Book Your Party Online
+          </Button>
+          <Button href="https://www.polefitnessstudio.com/party-packages" variant="ghost" size="lg" external>
+            View Booking Packages
+          </Button>
+        </div>
+
+        <h2>Send Us a Message <span class="script">let's plan it!</span></h2>
+        <!-- TODO: Formspree form ID -->
+        <ContactForm
+          action="https://formspree.io/f/REPLACE_ME"
+          fields={[
+            { name: 'name', label: 'Your name', type: 'text', required: true, autocomplete: 'name' },
+            { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+            { name: 'party-date', label: 'Party date', type: 'text', placeholder: 'e.g. Saturday, March 14', autocomplete: 'off' },
+            { name: 'group-size', label: 'Group size', type: 'text', placeholder: 'How many guests?', autocomplete: 'off' },
+            { name: 'message', label: 'Tell us about your party', type: 'textarea', required: true },
+          ]}
+          successRedirect="/thanks"
+          submitLabel="Send Message"
+          subject="New party inquiry — bachelorettepoledancingparties.com"
+        />
+      </div>
+      <div class="split-media">
+        <Image
+          src={studioPoles}
+          alt="Dance poles and red mood lighting inside a party room at Pole Fitness Studio in Las Vegas"
+          widths={[300, 588]}
+          sizes="(min-width: 1024px) 35vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: start;
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .split {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .split-media :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    height: auto;
+  }
+
+  h2 {
+    margin-top: var(--space-10);
+  }
+
+  h2:first-child {
+    margin-top: 0;
+  }
+
+  .phone {
+    font-size: var(--fs-lg);
+  }
+
+  .phone a {
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .phone a:hover {
+    text-decoration: underline;
+  }
+
+  address {
+    font-style: normal;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+import Button from './Button.astro';
+
+const items = [
+  { label: 'Home', href: '/' },
+  { label: 'Party Packages', href: '/party-package' },
+  { label: 'Reviews', href: '/reviews' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<nav class="primary-nav" aria-label="Primary">
+  <ul>
+    {items.map(item => {
+      const current = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+      return (
+        <li>
+          <a href={item.href} aria-current={current ? 'page' : undefined}>{item.label}</a>
+        </li>
+      );
+    })}
+    <li class="book-now">
+      <Button href="https://www.polefitnessstudio.com/parties" variant="primary" external>Book Now</Button>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .primary-nav {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .primary-nav {
+      display: block;
+    }
+
+    .primary-nav ul {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .primary-nav li > a:not([class]) {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: var(--fw-medium);
+      font-size: var(--fs-base);
+      padding: var(--space-2) 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color var(--duration-fast) var(--ease-out);
+    }
+
+    .primary-nav li > a:not([class]):hover,
+    .primary-nav li > a:not([class])[aria-current='page'] {
+      border-bottom-color: var(--color-primary);
+    }
+  }
+</style>

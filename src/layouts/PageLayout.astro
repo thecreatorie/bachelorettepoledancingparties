@@ -1,0 +1,60 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  heading?: string;
+  intro?: string;
+  schema?: object | object[];
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, eyebrow, heading, intro, schema, canonical, ogImage } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  schema={schema}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  {heading && (
+    <header class="page-hero">
+      <div class="container">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        <h1>{heading}</h1>
+        {intro && <p class="intro">{intro}</p>}
+      </div>
+    </header>
+  )}
+
+  <slot />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-section);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+
+  .intro {
+    margin: var(--space-4) 0 0 0;
+    max-width: 65ch;
+    font-size: var(--fs-lg);
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found — Bachelorette Pole Dancing Parties"
+  description="We're sorry, the page you're looking for doesn't exist. Head back to the party."
+  noindex
+>
+  <section class="container not-found">
+    <p class="eyebrow">404</p>
+    <h1>We're sorry, the page you're looking for doesn't exist.</h1>
+    <p>It may have moved or been renamed — but the party is still on. Try one of these:</p>
+    <ul>
+      <li><a href="/">Return Home</a></li>
+      <li><a href="/party-package">Party Packages</a></li>
+      <li><a href="/reviews">Reviews</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+      <li><a href="https://www.polefitnessstudio.com/parties" rel="noopener">Book a Party</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-section);
+    max-width: 60ch;
+  }
+  .eyebrow {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent-text);
+  }
+  ul { padding-left: var(--space-5); }
+</style>

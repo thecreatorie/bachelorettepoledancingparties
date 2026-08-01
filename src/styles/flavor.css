@@ -239,3 +239,31 @@ html.js .in-view[data-stagger] > * { opacity: 1; transform: none; }
   .btn:focus-visible,
   .card:hover { transform: none; }
 }
+
+
+/* ---- TYPOGRAPHY v2 — tighter display, calmer body, clear hierarchy ---- */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+h3 { letter-spacing: -0.015em; line-height: 1.18; }
+h1 { font-weight: 800; }
+
+p, li { text-wrap: pretty; }
+main p { line-height: 1.68; }
+main > .container > p,
+.prose p, .page-intro p, .subtitle {
+  max-width: 36em;
+}
+.subtitle { font-size: clamp(1.02rem, 0.96rem + 0.5vw, 1.2rem); line-height: 1.6; color: var(--color-text-secondary, var(--color-text-muted)); }
+
+/* Small-caps detail line used under headings */
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; font-weight: 700; }
+
+@media (max-width: 767px) {
+  main p, main li { font-size: 1.0625rem; line-height: 1.7; }
+  h1 { letter-spacing: -0.028em; }
+  .script { font-size: 1.35em; }
+}

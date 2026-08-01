@@ -67,6 +67,10 @@ const isCurrent = (href: string) =>
        (header shrinks on scroll, so 64px + border is the max to clear). */
     position: fixed;
     inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     background: #fffafc;
     background-clip: padding-box;
     backdrop-filter: none;
@@ -126,6 +130,9 @@ const isCurrent = (href: string) =>
 <script>
   const toggle = document.getElementById('mobile-nav-toggle');
   const drawer = document.getElementById('mobile-nav-drawer');
+  /* PORTAL: move the drawer to <body> so no ancestor filter/transform can
+     become its containing block and trap inset:0 inside the header. */
+  if (drawer && drawer.parentElement !== document.body) document.body.appendChild(drawer);
 
   if (toggle && drawer) {
     const setOpen = (open: boolean) => {

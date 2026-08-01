@@ -6,8 +6,10 @@ import MobileNav from './MobileNav.astro';
 <header class="site-header">
   <div class="container">
     <a href="/" class="logo" aria-label="Home">
-      <!-- Replace with brand logo SVG during design-theme phase. -->
-      <span class="logo-text">Bachelorette Pole Dancing Parties</span>
+      <span class="logo-text">
+        <span class="logo-script">Bachelorette</span>
+        <span class="logo-sub">Pole Dancing Parties</span>
+      </span>
     </a>
     <Nav />
     <MobileNav />
@@ -19,9 +21,7 @@ import MobileNav from './MobileNav.astro';
     position: sticky;
     top: 0;
     z-index: 70;
-    background: color-mix(in oklab, var(--color-bg) 90%, transparent);
-    backdrop-filter: saturate(180%) blur(10px);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    background: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
     transition: box-shadow var(--duration-normal) var(--ease-out);
   }
@@ -50,8 +50,24 @@ import MobileNav from './MobileNav.astro';
   .logo {
     text-decoration: none;
     color: var(--color-text);
+    line-height: 1;
+  }
+  .logo-text { display: block; }
+  .logo-script {
+    display: block;
+    font-family: var(--font-script);
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+    line-height: 0.95;
+    color: var(--color-primary);
+  }
+  .logo-sub {
+    display: block;
     font-family: var(--font-display);
-    font-size: var(--fs-lg);
-    font-weight: var(--fw-semibold);
+    font-size: clamp(0.56rem, 2.5vw, 0.7rem);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-top: 2px;
   }
 </style>

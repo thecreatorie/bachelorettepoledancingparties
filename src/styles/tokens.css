@@ -42,8 +42,8 @@
   --fs-5xl:  3.052rem;
 
   /* Fluid display sizes (clamp min-rem, fluid, max-rem) */
-  --fs-h1: clamp(2rem, 1.4rem + 3vw, 3.5rem);
-  --fs-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+  --fs-h1: clamp(2.15rem, 1.3rem + 4.2vw, 4.25rem);
+  --fs-h2: clamp(1.65rem, 1.15rem + 2.4vw, 2.9rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
 
   --fw-regular: 400;

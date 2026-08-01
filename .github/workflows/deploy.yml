@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Auto-deploy on push is HELD until DNS cutover (re-enable per _migration/git-commands.md).
+# Preview is served from the gh-pages branch instead.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

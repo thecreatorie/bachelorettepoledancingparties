@@ -7,6 +7,10 @@ const items = [
   { label: 'Contact', href: '/contact' },
   { label: 'Book Now', href: 'https://www.polefitnessstudio.com/parties' },
 ];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) =>
+  !href.startsWith('http') && (pathname === href || (href !== '/' && pathname.startsWith(href)));
 ---
 
 <div class="mobile-nav-wrap">
@@ -19,7 +23,11 @@ const items = [
   <div id="mobile-nav-drawer" class="drawer" hidden>
     <nav aria-label="Mobile primary">
       <ul>
-        {items.map(item => <li><a href={item.href}>{item.label}</a></li>)}
+        {items.map(item => (
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>
@@ -41,19 +49,35 @@ const items = [
     justify-content: center;
   }
 
+  .mobile-nav-wrap button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
   @media (min-width: 768px) {
     .mobile-nav-wrap { display: none; }
   }
 
   .drawer {
+    /* Full-screen fixed panel; sits beneath the sticky header (z 50) so the
+       translucent header bar stays visible while the panel itself is opaque.
+       Header shrinks on scroll, so the panel spans the full viewport to avoid gaps. */
     position: fixed;
-    inset: 64px 0 0 0;
+    inset: 0;
+    /* FULLY OPAQUE blush panel — never color-mix/backdrop-filter translucency. */
     background: var(--color-bg);
-    padding: var(--space-6);
+    padding: calc(72px + var(--space-4)) var(--space-5) var(--space-8);
     z-index: 40;
+    overflow-y: auto;
   }
 
   .drawer[hidden] { display: none; }
+
+  .drawer nav {
+    /* Subtle brand border marking the top of the menu panel */
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
 
   .drawer ul {
     list-style: none;
@@ -61,21 +85,36 @@ const items = [
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-2);
   }
 
   .drawer a {
-    display: block;
-    padding: var(--space-3);
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
     text-decoration: none;
     color: var(--color-text);
     font-size: var(--fs-lg);
     font-weight: var(--fw-medium);
     border-radius: var(--radius-md);
+    border-left: 3px solid transparent;
   }
 
   .drawer a:hover {
     background: var(--color-surface);
+  }
+
+  .drawer a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+
+  .drawer a[aria-current='page'] {
+    color: var(--color-text);
+    border-left-color: var(--color-primary);
+    background: var(--color-surface);
+    font-weight: var(--fw-semibold);
   }
 </style>
 
@@ -84,24 +123,32 @@ const items = [
   const drawer = document.getElementById('mobile-nav-drawer');
 
   if (toggle && drawer) {
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      toggle.setAttribute('aria-label', !open ? 'Close menu' : 'Open menu');
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       if (open) {
-        drawer.setAttribute('hidden', '');
-        document.body.style.overflow = '';
-      } else {
         drawer.removeAttribute('hidden');
         document.body.style.overflow = 'hidden';
         const first = drawer.querySelector('a');
         (first as HTMLElement | null)?.focus();
+      } else {
+        drawer.setAttribute('hidden', '');
+        document.body.style.overflow = '';
       }
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Close when a menu link is tapped
+    drawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        toggle.click();
+        setOpen(false);
         toggle.focus();
       }
     });

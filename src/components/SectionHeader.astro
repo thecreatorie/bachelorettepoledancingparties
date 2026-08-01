@@ -4,11 +4,13 @@ export interface Props {
   title: string;
   description?: string;
   align?: 'left' | 'center';
+  number?: string;
 }
-const { eyebrow, title, description, align = 'left' } = Astro.props;
+const { eyebrow, title, description, align = 'left', number } = Astro.props;
 ---
 
 <header class={`section-header section-header--${align}`}>
+  {number && <span class="ghost-num" aria-hidden="true">{number}</span>}
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <h2>{title}</h2>
   {description && <p class="description">{description}</p>}
@@ -16,6 +18,7 @@ const { eyebrow, title, description, align = 'left' } = Astro.props;
 
 <style>
   .section-header {
+    position: relative;
     margin-block: var(--space-section) var(--space-8);
     max-width: 60ch;
   }
@@ -23,13 +26,31 @@ const { eyebrow, title, description, align = 'left' } = Astro.props;
     text-align: center;
     margin-inline: auto;
   }
+  .ghost-num {
+    position: absolute;
+    top: -0.42em;
+    left: -0.06em;
+    z-index: -1;
+    font-family: var(--font-display);
+    font-weight: 200;
+    font-size: clamp(5rem, 4rem + 8vw, 10rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: color-mix(in oklab, var(--color-secondary) 11%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+  .section-header--center .ghost-num {
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .eyebrow {
     margin: 0 0 var(--space-2) 0;
     font-size: var(--fs-sm);
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-accent);
+    color: var(--color-secondary);
   }
   h2 {
     margin: 0;

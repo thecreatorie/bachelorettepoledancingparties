@@ -23,6 +23,7 @@ import MobileNav from './MobileNav.astro';
     backdrop-filter: saturate(180%) blur(10px);
     -webkit-backdrop-filter: saturate(180%) blur(10px);
     border-bottom: 1px solid var(--color-border);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
   }
 
   .site-header > .container {
@@ -32,6 +33,18 @@ import MobileNav from './MobileNav.astro';
     gap: var(--space-6);
     min-height: 64px;
     padding-block: var(--space-3);
+    transition: min-height var(--duration-normal) var(--ease-out),
+                padding var(--duration-normal) var(--ease-out);
+  }
+
+  /* Shrinks after 40px scroll — .is-scrolled toggled by Motion.astro */
+  .site-header.is-scrolled {
+    box-shadow: 0 6px 24px rgb(214 51 108 / 0.12);
+  }
+
+  .site-header.is-scrolled > .container {
+    min-height: 52px;
+    padding-block: var(--space-1);
   }
 
   .logo {

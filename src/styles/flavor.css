@@ -10,3 +10,216 @@
 h1, h2, h3 { font-weight: 700; }
 .card { border-radius: var(--radius-lg); box-shadow: 0 8px 24px rgb(214 51 108 / 0.10); border: 1px solid var(--color-border); }
 .eyebrow { color: var(--color-secondary); text-transform: uppercase; letter-spacing: 0.12em; font-size: var(--fs-sm); font-weight: 700; }
+
+/* ============================================================
+   Edison-style upgrade — big type, layered imagery, motion.
+   Vanilla CSS only. All motion is transform/opacity and is
+   disabled under prefers-reduced-motion (see guards at bottom
+   plus the global override in tokens.css).
+   ============================================================ */
+
+/* ---------- 1. Typography scale-up ---------- */
+:root {
+  --fs-h2: clamp(2rem, 1.55rem + 2vw, 3.4rem);
+  --space-section: clamp(3.5rem, 2.5rem + 6vw, 7.5rem);
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 1.9rem + 4.5vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* ---------- 2. Preloader ---------- */
+/* Hidden by default: content is never trapped if JS fails.
+   The inline gate script adds html.js-loading for max ~600ms. */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+
+html.js-loading .preloader {
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+}
+
+.preloader-mark {
+  font-family: var(--font-script);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-primary);
+  animation: preloader-pulse 0.75s ease-in-out infinite alternate;
+}
+
+@keyframes preloader-pulse {
+  from { transform: scale(0.88); opacity: 0.55; }
+  to   { transform: scale(1.08); opacity: 1; }
+}
+
+/* ---------- 3. Load-in stagger (hero + page heroes) ---------- */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+html.js .hero .copy > * {
+  animation: rise-in 0.6s var(--ease-out) both;
+}
+html.js .hero .copy > *:nth-child(1) { animation-delay: 0.55s; }
+html.js .hero .copy > *:nth-child(2) { animation-delay: 0.64s; }
+html.js .hero .copy > *:nth-child(3) { animation-delay: 0.73s; }
+html.js .hero .copy > *:nth-child(4) { animation-delay: 0.82s; }
+
+html.js .hero .media-cluster {
+  animation: rise-in 0.7s var(--ease-out) both;
+  animation-delay: 0.7s;
+}
+
+html.js .page-hero .container > * {
+  animation: rise-in 0.6s var(--ease-out) both;
+}
+html.js .page-hero .container > *:nth-child(1) { animation-delay: 0.55s; }
+html.js .page-hero .container > *:nth-child(2) { animation-delay: 0.64s; }
+html.js .page-hero .container > *:nth-child(3) { animation-delay: 0.73s; }
+
+/* ---------- 4. Scroll reveals (gated behind html.js) ---------- */
+html.js .reveal,
+html.js .reveal-left,
+html.js .reveal-right,
+html.js .reveal-scale {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  will-change: opacity, transform;
+}
+html.js .reveal       { transform: translateY(24px); }
+html.js .reveal-left  { transform: translateX(-32px); }
+html.js .reveal-right { transform: translateX(32px); }
+html.js .reveal-scale { transform: scale(0.94); }
+
+html.js [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+/* In-view state — declared after so it wins at equal specificity */
+html.js .in-view { opacity: 1; transform: none; }
+html.js .in-view[data-stagger] > * { opacity: 1; transform: none; }
+
+/* ---------- 5. Floating doodles ---------- */
+@keyframes floaty {
+  from { transform: translateY(-8px) rotate(-4deg); }
+  to   { transform: translateY(10px) rotate(5deg); }
+}
+
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  animation: floaty 7s ease-in-out infinite alternate;
+}
+
+/* ---------- 6. Layered image offset blocks ---------- */
+.offset-media { position: relative; }
+
+.offset-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translate(22px, 22px);
+  border-radius: 32px;
+  background: color-mix(in oklab, var(--color-secondary) 16%, var(--color-bg));
+  z-index: 0;
+}
+
+.offset-media--gold::before {
+  background: color-mix(in oklab, var(--color-accent) 24%, var(--color-bg));
+}
+
+.offset-media--left::before { transform: translate(-22px, 22px); }
+
+.offset-media > * { position: relative; z-index: 1; }
+
+/* ---------- 7. Component polish ---------- */
+.btn {
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.btn::after {
+  content: '→';
+  display: inline-block;
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-8px);
+  transition:
+    max-width var(--duration-normal) var(--ease-out),
+    margin-left var(--duration-normal) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.btn:hover,
+.btn:focus-visible { transform: scale(1.045); }
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  max-width: 1.4em;
+  margin-left: 0.45em;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn--primary:hover { box-shadow: 0 10px 26px rgb(214 51 108 / 0.35); }
+
+.card {
+  border-radius: 24px;
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgb(214 51 108 / 0.18);
+}
+
+/* ---------- 8. Reduced-motion guards ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+
+  html.js .hero .copy > *,
+  html.js .hero .media-cluster,
+  html.js .page-hero .container > *,
+  html.js .reveal,
+  html.js .reveal-left,
+  html.js .reveal-right,
+  html.js .reveal-scale,
+  html.js [data-stagger] > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+
+  .doodle,
+  .preloader-mark { animation: none; }
+
+  .btn:hover,
+  .btn:focus-visible,
+  .card:hover { transform: none; }
+}

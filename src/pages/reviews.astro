@@ -36,26 +36,35 @@ const reviews = [
   intro="Here’s a collection of recent reviews and a way for you to leave one."
 >
   <section class="container">
-    <p class="script-lede"><span class="script">our happy brides</span></p>
-    <p class="lede">
-      At BPDP, our utmost priority lies in providing exceptional service that leaves our
-      customers delighted. We derive immense gratification from the positive feedback we
-      receive, as it serves as a testament to our dedication and efforts. If your experience
-      with us was exceptional and it brought you joy, we kindly request you to take a moment to
-      share your valuable thoughts on Google. Your glowing review will not only highlight our
-      commitment to excellence, but it will also help others discover the exceptional
-      experience that awaits them at BPDP.
-    </p>
-    <div class="cta-row">
-      <Button href="https://g.page/r/CUI8Ia2fKTOTEBM/review" variant="primary" external>
-        Leave Us a Google Review
-      </Button>
+    <div class="reveal">
+      <p class="script-lede"><span class="script">our happy brides</span></p>
+      <p class="lede">
+        At BPDP, our utmost priority lies in providing exceptional service that leaves our
+        customers delighted. We derive immense gratification from the positive feedback we
+        receive, as it serves as a testament to our dedication and efforts. If your experience
+        with us was exceptional and it brought you joy, we kindly request you to take a moment to
+        share your valuable thoughts on Google. Your glowing review will not only highlight our
+        commitment to excellence, but it will also help others discover the exceptional
+        experience that awaits them at BPDP.
+      </p>
+      <div class="cta-row">
+        <Button href="https://g.page/r/CUI8Ia2fKTOTEBM/review" variant="primary" external>
+          Leave Us a Google Review
+        </Button>
+      </div>
     </div>
 
-    <div class="review-grid">
+    <div
+      class="review-carousel reveal"
+      data-stagger
+      tabindex="0"
+      role="region"
+      aria-label="Customer reviews carousel — scroll horizontally"
+    >
       {reviews.map((r) => (
         <blockquote class="review-card">
-          <p>“{r.quote}”</p>
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <p>{r.quote}</p>
           <footer>
             — {r.author}
             {r.location && <span class="location"> · {r.location}</span>}
@@ -64,22 +73,28 @@ const reviews = [
       ))}
     </div>
 
-    <div class="photo-row">
-      <Image
-        src={girlsCrawling}
-        alt="Party guests laughing while learning a floor-work routine together at the pole dancing studio"
-        widths={[480, 768, 1200]}
-        sizes="(min-width: 768px) 50vw, 100vw"
-      />
-      <Image
-        src={firemanSpin}
-        alt="Party guest trying a fireman spin on the pole while her friends cheer her on"
-        widths={[300, 600]}
-        sizes="(min-width: 768px) 50vw, 100vw"
-      />
+    <div class="photo-row" data-stagger>
+      <div class="offset-media">
+        <Image
+          src={girlsCrawling}
+          alt="Party guests laughing while learning a floor-work routine together at the pole dancing studio"
+          widths={[480, 768, 1200]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+        />
+      </div>
+      <div class="offset-media offset-media--gold">
+        <Image
+          src={firemanSpin}
+          alt="Party guest trying a fireman spin on the pole while her friends cheer her on"
+          widths={[300, 600]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+        />
+      </div>
     </div>
 
-    <div class="cta-row cta-row--center">
+    <div class="cta-row cta-row--center reveal">
       <Button href="https://www.polefitnessstudio.com/parties" variant="primary" size="lg" external>
         Book Your Own Party
       </Button>
@@ -99,27 +114,47 @@ const reviews = [
     margin-top: var(--space-3);
   }
 
-  .review-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+  /* Horizontal scroll-snap carousel */
+  .review-carousel {
+    display: flex;
     gap: var(--space-6);
-    margin-top: var(--space-10);
+    margin-top: var(--space-12);
+    padding-bottom: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-color: var(--color-primary) var(--color-surface);
   }
 
-  @media (min-width: 900px) {
-    .review-grid {
-      grid-template-columns: repeat(3, 1fr);
-      align-items: start;
-    }
+  .review-carousel:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
   }
 
   .review-card {
-    margin: 0;
-    padding: var(--space-6);
+    position: relative;
+    flex: 0 0 min(480px, 86%);
+    scroll-snap-align: center;
+    margin: var(--space-8) 0 0 0;
+    padding: var(--space-10) var(--space-8) var(--space-8);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: 24px;
     box-shadow: 0 8px 24px rgb(214 51 108 / 0.10);
+  }
+
+  .quote-mark {
+    position: absolute;
+    top: -0.32em;
+    left: var(--space-6);
+    font-family: var(--font-script);
+    font-size: 5.5rem;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.55;
+    pointer-events: none;
+    user-select: none;
   }
 
   .review-card p {
@@ -140,8 +175,8 @@ const reviews = [
   .photo-row {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-6);
-    margin-top: var(--space-12);
+    gap: var(--space-10);
+    margin-top: var(--space-16);
   }
 
   @media (min-width: 768px) {
@@ -151,7 +186,7 @@ const reviews = [
   }
 
   .photo-row :global(img) {
-    border-radius: var(--radius-lg);
+    border-radius: 32px;
     box-shadow: var(--shadow-md);
     width: 100%;
     height: auto;
@@ -168,6 +203,6 @@ const reviews = [
 
   .cta-row--center {
     justify-content: center;
-    margin-top: var(--space-10);
+    margin-top: var(--space-12);
   }
 </style>

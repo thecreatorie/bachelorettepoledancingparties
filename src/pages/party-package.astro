@@ -51,9 +51,9 @@ const faqSchema = {
   schema={faqSchema}
 >
   <section class="container">
-    <SectionHeader eyebrow="Pricing" title="Party Pricing" />
+    <SectionHeader number="01" eyebrow="Pricing" title="Party Pricing" />
     <div class="split">
-      <div class="split-copy">
+      <div class="split-copy reveal-left">
         <p>
           Price: <strong>$40 per guest</strong> with a six person minimum, and every girl will
           get her own pole to dance on! If you have groups smaller than six women, or larger
@@ -69,22 +69,23 @@ const faqSchema = {
           <Button href="/contact" variant="primary">Book Online</Button>
         </div>
       </div>
-      <div class="split-media">
+      <div class="split-media offset-media reveal-right">
         <Image
           src={partyGroup}
           alt="Large bachelorette party group gathered in the pole dancing studio in Las Vegas"
           widths={[480, 768, 1280]}
           sizes="(min-width: 1024px) 45vw, 100vw"
+          loading="lazy"
         />
       </div>
     </div>
   </section>
 
   <section class="container">
-    <SectionHeader eyebrow="Perks" title="Party Perks" />
+    <SectionHeader number="02" eyebrow="Perks" title="Party Perks" />
     <div class="split">
-      <div class="split-copy">
-        <ul class="perks">
+      <div class="split-copy reveal-left">
+        <ul class="perks" data-stagger>
           <li>
             The bride receives an <strong>I LOVE POLE DANCING</strong> tank top
             <span class="script">for the bride!</span>
@@ -104,21 +105,22 @@ const faqSchema = {
           <Button href="/contact" variant="primary">Book Online</Button>
         </div>
       </div>
-      <div class="split-media">
+      <div class="split-media offset-media offset-media--gold reveal-right">
         <Image
           src={bachParty}
           alt="Bachelorette party guests holding up their certified sexy license certificates at the studio"
           widths={[480, 768, 1200]}
           sizes="(min-width: 1024px) 45vw, 100vw"
+          loading="lazy"
         />
       </div>
     </div>
   </section>
 
   <section class="container">
-    <SectionHeader eyebrow="Questions" title="Party FAQs" />
+    <SectionHeader number="03" eyebrow="Questions" title="Party FAQs" />
     <div class="faq-wrap">
-      <div class="faq-list">
+      <div class="faq-list" data-stagger>
         {faqs.map((f) => (
           <details class="faq">
             <summary>{f.q}</summary>
@@ -126,7 +128,7 @@ const faqSchema = {
           </details>
         ))}
       </div>
-      <div class="faq-media">
+      <div class="faq-media offset-media reveal-right">
         <Image
           src={groupLaughing}
           alt="Group of friends laughing together during a pole dancing party class"
@@ -135,7 +137,7 @@ const faqSchema = {
         />
       </div>
     </div>
-    <div class="cta-row">
+    <div class="cta-row reveal">
       <Button href="/contact" variant="primary" size="lg">Book Online</Button>
     </div>
   </section>

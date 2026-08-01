@@ -2,12 +2,14 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import heroImage from '../assets/hero-party-dancers.jpg';
 import studioPerformance from '../assets/studio-performance.jpg';
 import brideTribe from '../assets/bride-tribe.jpg';
 import bachGroup from '../assets/bachelorette-group-poles.jpg';
+import girlsCrawling from '../assets/girls-crawling.jpg';
 import founderFawnia from '../assets/founder-fawnia.jpg';
 
 const schema = [
@@ -58,6 +60,7 @@ const schema = [
   <Hero
     eyebrow="Parties"
     title="Welcome to Bachelorette Pole Dancing Parties"
+    scriptWord="for the bride!"
     subtitle="Experience the ultimate bachelorette party in Las Vegas with our exclusive pole dancing party package! At the world’s first pole dancing school, open since 1995, you and your group will learn a sultry pole dance routine, master a sexy lap dance, and perfect the art of striptease — all in a fun, supportive environment."
     ctaLabel="Book Your Party"
     ctaHref="https://www.polefitnessstudio.com/parties"
@@ -65,17 +68,22 @@ const schema = [
     secondaryCtaHref="/party-package"
     image={heroImage}
     imageAlt="Two women practicing a striptease dance routine beside studio poles during a Las Vegas pole dancing party"
+    polaroidImage={bachGroup}
+    polaroidAlt="Bachelorette party group posing together around the dance poles at Pole Fitness Studio in Las Vegas"
   />
+
+  <Marquee />
 
   <section class="container">
     <SectionHeader
+      number="01"
       eyebrow="The Best Pole Dancing Bachelorette Parties in Las Vegas"
       title="Why Brides Love Our Pole Dancing Parties"
       description="Led by Fawnia, the pioneer of pole fitness, our studio has been featured in USA Today, the Los Angeles Times, and The Travel Channel, which calls it one of the top ways to celebrate in Vegas. Make unforgettable memories while learning new moves at the best pole dancing bachelorette party in Las Vegas!"
     />
     <div class="split">
-      <div class="split-copy">
-        <h3>Pole, Spin, &amp; Dance <span class="script">for the bride!</span></h3>
+      <div class="split-copy reveal-left">
+        <h3>Pole, Spin, &amp; Dance</h3>
         <p>
           Looking for something unique and exciting? A pole dancing bachelorette party in Las
           Vegas is the perfect way to celebrate! Combine fun, laughter, and bold moves for an
@@ -98,38 +106,67 @@ const schema = [
           <Button href="https://www.polefitnessstudio.com/parties" variant="primary" external>Book Online</Button>
         </div>
       </div>
-      <div class="split-media">
+      <div class="split-media offset-media reveal-right">
         <Image
-          src={bachGroup}
-          alt="Bachelorette party group posing together around the dance poles at Pole Fitness Studio in Las Vegas"
-          widths={[480, 768, 1124]}
+          src={brideTribe}
+          alt="Bride tribe in matching outfits celebrating a bachelorette party at Pole Fitness Studio"
+          widths={[480, 768, 1280]}
           sizes="(min-width: 1024px) 40vw, 100vw"
+          loading="lazy"
         />
       </div>
     </div>
   </section>
 
+  <section class="container stats-section reveal" aria-label="Party facts">
+    <ul class="stats-row" data-stagger>
+      <li>
+        <span class="stat-num">$<span data-count-to="40">40</span></span>
+        <span class="stat-label">per guest</span>
+      </li>
+      <li>
+        <span class="stat-num"><span data-count-to="75">75</span></span>
+        <span class="stat-label">minute private parties</span>
+      </li>
+      <li>
+        <span class="stat-num"><span data-count-to="15000">15,000</span>+</span>
+        <span class="stat-label">bachelorettes since 2005</span>
+      </li>
+      <li>
+        <span class="stat-num"><span data-count-to="24">24</span>/7</span>
+        <span class="stat-label">open for parties</span>
+      </li>
+    </ul>
+  </section>
+
   <section class="container">
     <SectionHeader
+      number="02"
       eyebrow="Vegas, Dance, & Party"
       title="Explore Our Party Packages"
       description="Looking to throw an unforgettable bachelorette party in Las Vegas? Our pole dancing party packages offer a unique and exciting way to celebrate with your friends. Whether you're visiting for the weekend or you're a local, we’ve got everything you need to make your party a hit — from learning fun routines to having a blast with your group. Explore our packages below and book the perfect party for your bride-to-be!"
     />
-    <div class="package-gallery">
-      <Image
-        src={studioPerformance}
-        alt="Dancer performing a pole routine under colored stage lights at the Las Vegas studio"
-        widths={[480, 768, 1280]}
-        sizes="(min-width: 768px) 50vw, 100vw"
-      />
-      <Image
-        src={brideTribe}
-        alt="Bride tribe in matching outfits celebrating a bachelorette party at Pole Fitness Studio"
-        widths={[480, 768, 1280]}
-        sizes="(min-width: 768px) 50vw, 100vw"
-      />
+    <div class="package-gallery" data-stagger>
+      <div class="offset-media">
+        <Image
+          src={studioPerformance}
+          alt="Dancer performing a pole routine under colored stage lights at the Las Vegas studio"
+          widths={[480, 768, 1280]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+        />
+      </div>
+      <div class="offset-media offset-media--gold">
+        <Image
+          src={girlsCrawling}
+          alt="Party guests laughing while learning a floor-work routine together at the pole dancing studio"
+          widths={[480, 768, 1280]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+        />
+      </div>
     </div>
-    <div class="cta-row">
+    <div class="cta-row reveal">
       <Button href="https://www.polefitnessstudio.com/party-packages" variant="primary" size="lg" external>
         Explore Bachelorette Party Packages
       </Button>
@@ -138,17 +175,18 @@ const schema = [
   </section>
 
   <section class="container">
-    <SectionHeader eyebrow="Meet the Founder" title="Hi, I'm Fawnia" />
+    <SectionHeader number="03" eyebrow="Meet the Founder" title="Hi, I'm Fawnia" />
     <div class="split split--reverse">
-      <div class="split-media">
+      <div class="split-media offset-media offset-media--gold offset-media--left reveal-left">
         <Image
           src={founderFawnia}
           alt="Fawnia Mondey, founder of Pole Fitness Studio, posing beside a dance pole in the studio"
           widths={[480, 768, 1124]}
           sizes="(min-width: 1024px) 40vw, 100vw"
+          loading="lazy"
         />
       </div>
-      <div class="split-copy">
+      <div class="split-copy reveal-right">
         <p>
           My name is Fawnia. I am a pole dance instructor with over 30 years experience
           performing and teaching. I was also a fitness model, personal trainer, writer,
@@ -174,11 +212,12 @@ const schema = [
 
   <section class="container">
     <SectionHeader
+      number="04"
       eyebrow="Reviews"
       title="Our Happy Customers"
       description="Real reviews from bachelorette parties, birthdays, and girls nights out at our studio."
     />
-    <blockquote class="review-teaser">
+    <blockquote class="review-teaser reveal-scale">
       <p>
         “We went here for my best friends bachelorette party and we had A BLAST!!!! Our
         instructor was so knowledgeable and so much fun! She made us feel comfortable enough to
@@ -186,13 +225,13 @@ const schema = [
       </p>
       <footer>— Maddie Reed</footer>
     </blockquote>
-    <div class="cta-row">
+    <div class="cta-row reveal">
       <Button href="/reviews" variant="ghost">Read More Reviews</Button>
     </div>
   </section>
 
   <section class="container">
-    <div class="booking-band">
+    <div class="booking-band reveal-scale">
       <h2>Ready to Celebrate? <span class="script">let's party!</span></h2>
       <p>
         Book the best pole dancing bachelorette party in Las Vegas — open for parties 24/7,
@@ -210,7 +249,7 @@ const schema = [
   .split {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-8);
+    gap: var(--space-12);
     align-items: center;
   }
 
@@ -224,7 +263,7 @@ const schema = [
   }
 
   .split-media :global(img) {
-    border-radius: var(--radius-lg);
+    border-radius: 32px;
     box-shadow: var(--shadow-lg);
     height: auto;
   }
@@ -237,10 +276,54 @@ const schema = [
     margin-top: 0;
   }
 
+  .stats-section {
+    margin-top: var(--space-section);
+  }
+
+  .stats-row {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-10) var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 32px;
+    box-shadow: 0 8px 24px rgb(214 51 108 / 0.10);
+  }
+
+  @media (min-width: 900px) {
+    .stats-row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stat-num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: clamp(2.2rem, 1.6rem + 2.2vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+
+  .stat-label {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+
   .package-gallery {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    gap: var(--space-10);
   }
 
   @media (min-width: 768px) {
@@ -250,7 +333,7 @@ const schema = [
   }
 
   .package-gallery :global(img) {
-    border-radius: var(--radius-lg);
+    border-radius: 32px;
     box-shadow: var(--shadow-md);
     height: auto;
     width: 100%;
@@ -262,7 +345,7 @@ const schema = [
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-8);
   }
 
   .cta-row--center {
@@ -270,13 +353,27 @@ const schema = [
   }
 
   .review-teaser {
+    position: relative;
     margin: 0;
-    padding: var(--space-8);
+    padding: var(--space-10) var(--space-8) var(--space-8);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: 24px;
     box-shadow: 0 8px 24px rgb(214 51 108 / 0.10);
     max-width: 70ch;
+  }
+
+  .review-teaser::before {
+    content: '“';
+    position: absolute;
+    top: -0.1em;
+    left: var(--space-6);
+    font-family: var(--font-script);
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .review-teaser p {
@@ -292,7 +389,7 @@ const schema = [
 
   .booking-band {
     margin-top: var(--space-section);
-    padding: var(--space-12) var(--space-8);
+    padding: var(--space-16) var(--space-8);
     text-align: center;
     background:
       radial-gradient(circle 6px at 10% 25%, color-mix(in oklab, var(--color-accent) 55%, transparent) 98%, transparent),
@@ -300,7 +397,7 @@ const schema = [
       radial-gradient(circle 4px at 72% 85%, color-mix(in oklab, var(--color-primary) 40%, transparent) 98%, transparent),
       linear-gradient(180deg, var(--color-surface), var(--color-bg));
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: 32px;
   }
 
   .booking-band h2 {

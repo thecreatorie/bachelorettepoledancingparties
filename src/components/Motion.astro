@@ -1,0 +1,105 @@
+---
+/*
+  Motion system:
+  - Preloader overlay (blush bg, pulsing Great Vibes "B", ~600ms max).
+    Hidden by default; only shown while html.js-loading is present, which
+    the inline gate script adds AND removes — content is never trapped
+    if JS fails, and the preloader is skipped on prefers-reduced-motion.
+  - Module script: html.js gate, IntersectionObserver scroll reveals,
+    [data-stagger] child delays, count-up counters, sticky-header shrink.
+*/
+---
+
+<div class="preloader" aria-hidden="true">
+  <span class="preloader-mark">B</span>
+</div>
+
+<script is:inline>
+  (function () {
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var root = document.documentElement;
+      root.classList.add('js-loading');
+      window.setTimeout(function () {
+        root.classList.remove('js-loading');
+      }, 600);
+    } catch (e) {
+      document.documentElement.classList.remove('js-loading');
+    }
+  })();
+</script>
+
+<script>
+  const root = document.documentElement;
+  root.classList.add('js');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- Scroll reveals ---
+  const targets = document.querySelectorAll(
+    '.reveal, .reveal-left, .reveal-right, .reveal-scale, [data-stagger]'
+  );
+
+  document.querySelectorAll('[data-stagger]').forEach((parent) => {
+    Array.from(parent.children).forEach((child, i) => {
+      (child as HTMLElement).style.transitionDelay = reduced ? '0ms' : `${i * 80}ms`;
+    });
+  });
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('in-view'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+
+  // --- Count-up counters ---
+  // Markup renders the final value as text (no-JS safe); JS animates 0 → value.
+  const counters = document.querySelectorAll<HTMLElement>('[data-count-to]');
+  const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+
+  const runCounter = (el: HTMLElement) => {
+    const to = parseFloat(el.dataset.countTo || '0');
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * eased);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  if (!reduced && 'IntersectionObserver' in window && counters.length) {
+    const cio = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            runCounter(entry.target as HTMLElement);
+            cio.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach((el) => cio.observe(el));
+  }
+
+  // --- Sticky header shrink after 40px ---
+  const header = document.querySelector('.site-header');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

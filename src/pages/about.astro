@@ -23,7 +23,7 @@ const aboutSchema = {
 >
   <section class="container">
     <div class="split">
-      <div class="split-copy">
+      <div class="split-copy reveal-left">
         <p>
           We have celebrated with over 15,000 bachelorettes since we opened in Las Vegas in
           2005. Fawnia Mondey, and her staff of 30 incredible instructors have developed super
@@ -53,12 +53,13 @@ const aboutSchema = {
           <Button href="/party-package" variant="ghost" size="lg">See Party Packages</Button>
         </div>
       </div>
-      <div class="split-media">
+      <div class="split-media offset-media reveal-right">
         <Image
           src={groupRed}
           alt="Bachelorette party group posing under the studio's signature red lights at Pole Fitness Studio"
           widths={[480, 768, 948]}
           sizes="(min-width: 1024px) 45vw, 100vw"
+          loading="lazy"
         />
       </div>
     </div>

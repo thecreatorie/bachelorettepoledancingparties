@@ -62,6 +62,8 @@ const {
           />
         </div>
 
+        {scriptWord && <span class="media-script script" aria-hidden="true">{scriptWord}</span>}
+
         {polaroidImage && (
           <figure class="polaroid">
             <Image
@@ -204,8 +206,61 @@ const {
   .doodle-star { bottom: 16%; right: -8px; animation-delay: -4s; }
   .doodle-confetti { top: -14px; right: 20%; animation-delay: -1.2s; }
 
-  @media (max-width: 1023px) {
+  /* Script word duplicated over the photo — mobile only (desktop uses .hero-script on the h1) */
+  .media-script {
+    display: none;
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    z-index: 2;
+    transform: rotate(-4deg);
+    font-size: 2.4rem;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--color-primary);
+    text-shadow:
+      0 0 12px rgb(255 250 252 / 0.95),
+      0 2px 4px rgb(255 250 252 / 0.9);
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
     .media-cluster { margin-inline: var(--space-8) var(--space-4); }
     .doodle-glass { right: 0; }
+  }
+
+  /* --- Mobile (<768px): simplified composition, IMAGE FIRST --- */
+  @media (max-width: 767px) {
+    .hero .container { gap: var(--space-8); }
+
+    /* Collage above headline/copy/CTAs */
+    .media-cluster {
+      order: -1;
+      margin-inline: 0;
+      width: 100%;
+    }
+
+    /* Main photo alone: fixed 4/5 aspect, arch-top mask, full width */
+    .blob-frame {
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      border-radius: 50% 50% 28px 28px / 22% 22% 28px 28px;
+    }
+
+    /* The layered extras don't hold up at 390px — keep photo + script + one doodle */
+    .polaroid,
+    .doodle-glass,
+    .doodle-star,
+    .doodle-confetti { display: none; }
+
+    .doodle-heart {
+      top: 12px;
+      left: 12px;
+      width: 34px;
+      height: auto;
+    }
+
+    .media-script { display: inline-block; }
+    .hero-script { display: none; }
   }
 </style>

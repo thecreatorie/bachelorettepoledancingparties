@@ -59,15 +59,20 @@ const isCurrent = (href: string) =>
   }
 
   .drawer {
-    /* Full-screen fixed panel; sits beneath the sticky header (z 50) so the
-       translucent header bar stays visible while the panel itself is opaque.
-       Header shrinks on scroll, so the panel spans the full viewport to avoid gaps. */
+    /* Full-screen fixed panel. Explicit LITERAL background color — never a
+       var/color-mix/backdrop-filter, so the menu can never render translucent
+       even if custom properties fail to resolve. Header (z 70) stays above so
+       the hamburger remains clickable; panel covers the whole viewport
+       (inset: 0) with top padding clearing the header at its TALLEST state
+       (header shrinks on scroll, so 64px + border is the max to clear). */
     position: fixed;
     inset: 0;
-    /* FULLY OPAQUE blush panel — never color-mix/backdrop-filter translucency. */
-    background: var(--color-bg);
+    background: #fffafc;
+    background-clip: padding-box;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     padding: calc(72px + var(--space-4)) var(--space-5) var(--space-8);
-    z-index: 40;
+    z-index: 60;
     overflow-y: auto;
   }
 

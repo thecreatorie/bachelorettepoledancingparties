@@ -177,7 +177,7 @@ const schema = [
   <section class="container">
     <SectionHeader number="03" eyebrow="Meet the Founder" title="Hi, I'm Fawnia" />
     <div class="split split--reverse">
-      <div class="split-media offset-media offset-media--gold offset-media--left reveal-left">
+      <div class="split-media offset-media offset-media--gold offset-media--left offset-media--portrait reveal-left">
         <Image
           src={founderFawnia}
           alt="Fawnia Mondey, founder of Pole Fitness Studio, posing beside a dance pole in the studio"
@@ -262,6 +262,11 @@ const schema = [
     }
   }
 
+  /* Stacked layouts: image first */
+  @media (max-width: 1023px) {
+    .split-media { order: -1; }
+  }
+
   .split-media :global(img) {
     border-radius: 32px;
     box-shadow: var(--shadow-lg);
@@ -298,6 +303,14 @@ const schema = [
     .stats-row {
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  @media (max-width: 599px) {
+    .stats-row {
+      gap: var(--space-6) var(--space-3);
+      padding: var(--space-8) var(--space-3);
+    }
+    .stat-num { font-size: 1.9rem; }
   }
 
   .stat-num {

@@ -150,6 +150,22 @@ html.js .in-view[data-stagger] > * { opacity: 1; transform: none; }
 
 .offset-media > * { position: relative; z-index: 1; }
 
+/* Mobile: tighter offset blocks + predictable image aspect ratios.
+   Portrait crops opt in via .offset-media--portrait. */
+@media (max-width: 767px) {
+  .offset-media::before { transform: translate(12px, 12px); }
+  .offset-media--left::before { transform: translate(-12px, 12px); }
+
+  .offset-media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .offset-media--portrait img { aspect-ratio: 3 / 4; }
+}
+
 /* ---------- 7. Component polish ---------- */
 .btn {
   transition:

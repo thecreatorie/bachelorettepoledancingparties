@@ -81,6 +81,11 @@ const aboutSchema = {
     }
   }
 
+  /* Stacked layout: image first */
+  @media (max-width: 1023px) {
+    .split-media { order: -1; }
+  }
+
   .split-media :global(img) {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);

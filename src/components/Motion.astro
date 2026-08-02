@@ -48,17 +48,42 @@
   if (reduced || !('IntersectionObserver' in window)) {
     targets.forEach((el) => el.classList.add('in-view'));
   } else {
+    const reveal = (el) => { el.classList.add('in-view'); };
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
+            reveal(entry.target);
             io.unobserve(entry.target);
           }
         }
       },
-      { threshold: 0.15 }
+      /* threshold 0 + a small bottom margin: fires on the first visible pixel,
+         so fast flick-scrolling can never skip an element. */
+      { threshold: 0, rootMargin: '0px 0px -6% 0px' }
     );
+
+    /* Backstop 1: on scroll/resize, reveal anything already within the viewport.
+       IntersectionObserver callbacks can coalesce during fast scrolling. */
+    let ticking = false;
+    const sweep = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      targets.forEach((el) => {
+        if (el.classList.contains('in-view')) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > 0) { reveal(el); io.unobserve(el); }
+      });
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('load', sweep);
+    setTimeout(sweep, 300);
+
+    /* Backstop 2: content must never stay invisible. If anything is still
+       unrevealed after 3.5s, show it regardless of scroll position. */
+    setTimeout(() => { targets.forEach(reveal); }, 3500);
     targets.forEach((el) => io.observe(el));
   }
 

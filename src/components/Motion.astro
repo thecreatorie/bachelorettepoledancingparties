@@ -82,8 +82,18 @@
     setTimeout(sweep, 300);
 
     /* Backstop 2: content must never stay invisible. If anything is still
-       unrevealed after 3.5s, show it regardless of scroll position. */
-    setTimeout(() => { targets.forEach(reveal); }, 3500);
+       unrevealed after 3.5s, show it regardless of scroll position. These are
+       off-screen, so show them instantly (no half-faded transition state that
+       contrast checkers could catch mid-animation). */
+    const revealNow = (el) => {
+      if (el.classList.contains('in-view')) return;
+      el.style.transition = 'none';
+      if (el.hasAttribute('data-stagger')) {
+        Array.from(el.children).forEach((c) => { (c as HTMLElement).style.transition = 'none'; });
+      }
+      reveal(el);
+    };
+    setTimeout(() => { targets.forEach(revealNow); }, 3500);
     targets.forEach((el) => io.observe(el));
   }
 
